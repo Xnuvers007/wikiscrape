@@ -1,5 +1,14 @@
 # wikiscrape
 
+# info 
+UPDATE :
+
+at 4:16 (2/14/2023) = add feature speedtest load page website and your connection internet
+
+https://wikiscrape.xnuvers007.repl.co/speedtest?domain=google.com
+
+# What is this ?
+
 ini adalah wikipedia scraping dengan menggunakan flask python
 
 this is wikipedia scraping using flask python

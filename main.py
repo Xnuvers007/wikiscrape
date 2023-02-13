@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify, send_from_directory, redirect, url_for
-import os
-import requests
+import os, requests, speedtest
 from bs4 import BeautifulSoup
+
+st = speedtest.Speedtest()
 
 app = Flask(__name__)
 
@@ -99,7 +100,6 @@ def service_unavailable(e):
             </body>
             </html>
     """
-
 
 @app.route('/timeout')
 def timeout():
@@ -267,10 +267,10 @@ def index():
             }
         </script>
         <header>
-            <img id="logo" src="https://i.pinimg.com/564x/06/2e/7f/062e7f7ae6d8ba893b44f66a08983024.jpg" alt="logo" width="50" height="50">
+            <img id="logo" src="https://i.pinimg.com/564x/06/2e/7f/062e7f7ae6d8ba893b44f66a08983024.jpg" alt="logo" width="65" height="65">
             <div id="clock"></div>
             <div style="float:right;">
-                <h1 style="color: yellow; font-size: 14px;"><a href="https://github.com/Xnuvers007"> Xnuvers007 </a></h3>
+                <h1 style="color: yellow; font-size: 28px;"><a href="https://github.com/Xnuvers007"> Xnuvers007 </a></h3>
  </h1>
             </div>
         </header>
@@ -373,6 +373,41 @@ def scrape_en():
     footer_content = ''.join([e.text.strip() for e in footer]) if footer else None
     result = {'title': title, 'paragraph': ps, 'h2': h2s, 'links': links, 'footer': footer_content}
     return jsonify({'Konten': result})
+
+@app.route('/speedtest')
+def speedtest():
+    domain = request.args.get('domain')
+    # if user input domain but not have http or https
+    if domain and not domain.startswith('http'):
+        domain = 'http://' + domain
+    elif domain and domain.startswith('https'):
+        domain = 'https://' + domain
+    else:
+        return jsonify({'error': 'domain is required'})
+    try:
+        response = requests.get(domain)
+    except:
+        return jsonify({'error': 'domain is not valid'})
+    if domain:
+        st.get_best_server()
+        st.download()
+        st.upload()
+        st.results.share()
+        results_dict = st.results.dict()
+        # data = {
+        #     'speedtest_your_internet': results_dict,
+        #     'message': 'success\n',
+        #     'Loading_time_website': response.elapsed.total_seconds()
+        # }
+        # return jsonify(data)
+        data = {
+            'message': 'success\n',
+            'status': 200
+        }
+        return jsonify({'speedtest_your_internet': results_dict, 'data': data, 'Loading_time_website': response.elapsed.total_seconds()})
+    else:
+        return jsonify({'error': 'domain is required'})
+
 
 if __name__ == '__main__':
     app.run(debug=True,

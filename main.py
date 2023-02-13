@@ -300,7 +300,7 @@ def index():
             <button type="submit" class="btn btn-primary" placeholder="BPUPKI">Scrape</button>
         </form>
         <div class="footer">
-            <p>Copyleft &copy; 2023 Xnuvers007. All right reserved</p>
+            <p>Copyright &copy; 2023 Xnuvers007. All right reserved</p>
     </body>
 </html>
     """

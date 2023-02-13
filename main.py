@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory, redirect, url_for
 import os
-import requests, re
+import requests
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
@@ -19,7 +19,6 @@ def page_not_found(e):
 
 @app.errorhandler(403)
 def page_not_found(e):
-    # give an alert to the user that the page is not found
     return redirect(url_for('index'))
 
 @app.errorhandler(400)
@@ -71,6 +70,16 @@ def bad_gateway(e):
             </body>
             </html>
     """
+
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'robots.txt', mimetype='text/plain')
+    # return """
+    # User-agent: *
+    # <br />
+    # Allow: /
+    # """
+
 
 @app.errorhandler(503)
 def service_unavailable(e):
@@ -278,6 +287,10 @@ def index():
         <center>
             <p> By The Way, if you want to good json format with pretty print, you can use <a href="https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa/">this extension (edge/chrome)</a> </p>
             <p> jika kalian ingin melihat isi Json menjadi rapih gunakan <a href="https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa/">ekstensi ini (edge/chrome)</a> </p>
+            <br />
+            <a href="https://github.com/Xnuvers007/wikiscrape" style="color: white;"><button style="background-color: #3498DB; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+  Source code
+</button></a>
         </center>
 
         <h2>English</h2>
@@ -285,19 +298,19 @@ def index():
             <input type="hidden" name="language" value="en">
             <label>
                 <p>Article Title: </p>
-                <input type="text" name="title">
+                <input type="text" name="title" placeholder="World" autocomplete="off">
             </label>
-            <button type="submit" class="btn btn-primary" placeholder="President">Scrape</button>
+            <button type="submit" class="btn btn-primary">Scrape</button>
         </form>
 
         <h2>Indonesian</h2>
         <form action="/id/scrape" method="post">
             <input type="hidden" name="language" value="id">
             <label>
-                <p>Article Title: </p>
-                <input type="text" name="title">
+                <p>Judul Artikel: </p>
+                <input type="text" name="title" placeholder="BPUPKI" autocomplete="off">
             </label>
-            <button type="submit" class="btn btn-primary" placeholder="BPUPKI">Scrape</button>
+            <button type="submit" class="btn btn-primary">Scrape</button>
         </form>
         <div class="footer">
             <p>Copyright &copy; 2023 Xnuvers007. All right reserved</p>
@@ -362,4 +375,8 @@ def scrape_en():
     return jsonify({'Konten': result})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=80)
+    app.run(debug=True,
+           host='0.0.0.0',
+           port=80)
+
+# app.run(host='0.0.0.0', port=81)

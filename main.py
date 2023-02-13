@@ -267,10 +267,10 @@ def index():
             }
         </script>
         <header>
-            <img id="logo" src="https://i.pinimg.com/564x/06/2e/7f/062e7f7ae6d8ba893b44f66a08983024.jpg" alt="logo" width="65" height="65">
+            <img id="logo" src="https://i.pinimg.com/564x/06/2e/7f/062e7f7ae6d8ba893b44f66a08983024.jpg" alt="logo" width="50" height="50">
             <div id="clock"></div>
             <div style="float:right;">
-                <h1 style="color: yellow; font-size: 28px;"><a href="https://github.com/Xnuvers007"> Xnuvers007 </a></h3>
+                <h1 style="color: yellow; font-size: 14px;"><a href="https://github.com/Xnuvers007"> Xnuvers007 </a></h3>
  </h1>
             </div>
         </header>

@@ -312,8 +312,12 @@ def index():
             </label>
             <button type="submit" class="btn btn-primary">Scrape</button>
         </form>
+        <br />
+        <center><button class="btn btn-primary"><a href="https://wikiscrape.xnuvers007.repl.co/speedtest?domain=" style="color: yellow;">check internet & website</a></button></center>
+        <hr />
         <div class="footer">
             <p>Copyright &copy; 2023 Xnuvers007. All right reserved</p>
+            </div>
     </body>
 </html>
     """
@@ -383,7 +387,7 @@ def speedtest():
     elif domain and domain.startswith('https'):
         domain = 'https://' + domain
     else:
-        return jsonify({'error': 'domain is required'})
+        return jsonify({'error': 'domain is required', 'message': 'this is check speed internet yours and page loading website https://wikiscrape.xnuvers007.repl.co/speedtest?domain=YOUR-WEBSITE'})
     try:
         response = requests.get(domain)
     except:
